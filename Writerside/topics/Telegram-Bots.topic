@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       title="Telegram Bots" id="Telegram-Bots">
+
+    <section-starting-page>
+        <title>Telegram Bots</title>
+        <description>
+            Welcome to the %project% wiki, a simple-to-use library to create %tg% projects in Java.
+            If you're not sure what to look at, why not take a look at the Getting Started guide?
+        </description>
+
+        <spotlight>
+            <a href="Getting-Started.md" description="Get Started with the library" type="start"/>
+            <a href="FAQ.md" description="Check our FAQ" type="academy"/>
+        </spotlight>
+
+        <primary>
+            <title>New versions continuously</title>
+            <a href="Changelog.md" description="Check recent changes"/>
+            <a href="How-To-Update.md" description="See how to update to a newer version"/>
+        </primary>
+
+        <secondary>
+            <title>Other important items</title>
+            <a href="Java-Telegram-Bot-Tutorial.md" description="Java Telegram Bot Tutorial"/>
+            <a href="Abilities.md" description="Abilities"/>
+        </secondary>
+    </section-starting-page>
+</topic>
