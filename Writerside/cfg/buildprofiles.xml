@@ -1,0 +1,24 @@
+<buildprofiles xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/build-profiles.xsd">
+    <variables>
+        <primary-color>aqua</primary-color>
+        <product-web-url>https://github.com/rubenlagus/TelegramBots</product-web-url>
+        <download-title>Github</download-title>
+        <download-page>https://github.com/rubenlagus/TelegramBots</download-page>
+        <showDownloadButton>true</showDownloadButton>
+        <algolia-id>MU5QJD4JVP</algolia-id>
+        <algolia-index>TelegramBotsDocumentation</algolia-index>
+        <algolia-api-key>198bd23ce6537d82f81682ec53e45f96</algolia-api-key>
+        <web-root>https://rubenlagus.github.io/TelegramBotsDocumentation</web-root>
+    </variables>
+    <build-profile instance="telegram-bots">
+        <variables>
+            <noindex-content>false</noindex-content>
+        </variables>
+    </build-profile>
+    <footer>
+        <link href="https://github.com/rubenlagus/TelegramBots/issues">Issue Tracker</link>
+        <link href="https://telegram.me/JavaBotsApi">Telegram Chat</link>
+        <copyright>Ruben Bermudez 2016</copyright>
+    </footer>
+</buildprofiles>

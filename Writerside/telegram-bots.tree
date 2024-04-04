@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="telegram-bots"
+                 name="Telegram Bots"
+                 start-page="Telegram-Bots.topic" >
+
+    <toc-element topic="Telegram-Bots.topic"/>
+    <toc-element topic="Getting-Started.md"/>
+    <toc-element topic="FAQ.md"/>
+    <toc-element topic="Handling-Bot-Tokens.md"/>
+    <toc-element topic="Java-Telegram-Bot-Tutorial.md">
+        <toc-element topic="Lesson-1.md"/>
+        <toc-element topic="Lesson-2.md"/>
+        <toc-element topic="Lesson-3.md"/>
+        <toc-element topic="Lesson-4.md"/>
+        <toc-element topic="Lesson-5.md"/>
+        <toc-element topic="Lesson-6.md"/>
+        <toc-element topic="Lesson-7.md"/>
+        <toc-element topic="Lesson-8.md"/>
+    </toc-element>
+    <toc-element topic="Abilities.md">
+        <toc-element topic="Simple-Example.md"/>
+        <toc-element topic="Using-Replies.md"/>
+        <toc-element topic="Ability-Toggle.md"/>
+        <toc-element topic="State-Machines.md"/>
+        <toc-element topic="Database-Handling.md"/>
+        <toc-element topic="Ability-Extensions.md"/>
+        <toc-element topic="Bot-Testing.md"/>
+        <toc-element topic="Bot-Recovery.md"/>
+        <toc-element topic="Advanced.md"/>
+        <toc-element topic="Additional-Examples.md"/>
+    </toc-element>
+    <toc-element topic="Changelog.md">
+        <toc-element topic="How-To-Update.md">
+            <toc-element topic="How-To-Update-7.md"/>
+        </toc-element>
+    </toc-element>
+</instance-profile>
