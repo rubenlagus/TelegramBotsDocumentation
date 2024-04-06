@@ -12,6 +12,7 @@ While reading this book you will learn how to create Telegram Bots from start to
 * [Lesson 6. Inline keyboards and editing message's text](Lesson-6.md)
 * [Lesson 7. Creating users database with MongoDB](Lesson-7.md)
 * [Lesson 8. Integrating with Redis](Lesson-8.md)
+* [Lesson 9. Simple Spring Boot Bot](Lesson-9.md)
 
 ## Source code
 
