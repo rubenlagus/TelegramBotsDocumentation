@@ -97,7 +97,7 @@ You have available multiple constructors and implementations of `registerBot` to
 For webhook bots, you can start the bot application and start registering your bots:
 
 ```Java
-    TelegramBotsWebhookApplication webhookApplication = new TelegramBotsWebhookApplication()
+    TelegramBotsWebhookApplication webhookApplication = new TelegramBotsWebhookApplication();
     botsApplication.registerBot(new AmazingBot());
 ```
 
@@ -111,7 +111,7 @@ For convenience, an implementation using [okHttp](https://square.github.io/okhtt
 
 ```Java
     TelegramClient telegramClient = new OkHttpTelegramClient("TOKEN");
-    telegramClient.execute(new SendMessage("chatId", "text));
+    telegramClient.execute(new SendMessage("chatId", "text"));
 ```
 
 <tip>
@@ -161,7 +161,7 @@ To show with an example, let's use `SendMessage` method that requires `chatId` a
         sendMessage.setText("Text");
     </code-block>
     <code-block lang="java">
-        SendMessage sendMessage = new SendMessage("chatId", "text);
+        SendMessage sendMessage = new SendMessage("chatId", "text");
     </code-block>
 </compare>
 
