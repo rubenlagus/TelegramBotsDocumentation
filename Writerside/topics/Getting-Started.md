@@ -110,8 +110,9 @@ Now let's start our bot
             public class Main {
                public static void main(String[] args) {
                    try {
+                       String botToken = "12345:YOUR_TOKEN";
                        TelegramBotsLongPollingApplication botsApplication = new TelegramBotsLongPollingApplication();
-                       botsApplication.registerBot(new MyAmazingBot());
+                       botsApplication.registerBot(botToken, new MyAmazingBot());
                    } catch (TelegramApiException e) {
                        e.printStackTrace();
                    }
