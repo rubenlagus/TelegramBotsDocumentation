@@ -8,10 +8,11 @@ I will accept them if they add something valuable documentation.
 
 Please, **DO NOT PUSH ANY TOKEN OR API KEY**, I will never accept a pull request with that content.
 
-## Powered by Jetbrains and Algolia
+## Powered by Jetbrains, Algolia and DigitalOcean
 <p align="center">
-   <a href="https://www.jetbrains.com/?from=TelegramBots"><img src="Writerside/images/jetbrains.png" width="75"></a>
+    <a href="https://www.jetbrains.com/?from=TelegramBots"><img src="Writerside/images/jetbrains.png" width="75"></a>
     <a href="https://algolia.com/?from=TelegramBots"><img src="Writerside/images/Algolia-mark-blue.png" width="75"></a>
+    <a href="https://www.digitalocean.com/?refcode=42a4fa8c6d00&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Badge" /></a>
 </p>
 
 ## License
