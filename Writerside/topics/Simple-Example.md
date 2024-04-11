@@ -85,11 +85,11 @@ Running the bot is just like running the regular Telegram bots. Create a Java cl
 public class Application {
     public static void main(String[] args) {
         try {
-        
+          String botToken = "12345:YOUR_TOKEN"; 
           // Instantiate Telegram Bots API
           TelegramBotsLongPollingApplication botsApplication = new TelegramBotsLongPollingApplication();
           // Register your newly created AbilityBot
-          botsApplication.registerBot(new HelloBot());
+          botsApplication.registerBot(botToken, new HelloBot());
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
