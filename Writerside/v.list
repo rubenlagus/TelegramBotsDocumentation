@@ -8,4 +8,5 @@
     <var name="version" value="7.2.0" />
     <var name="emoji_version" value="5.1.1" />
     <var name="lettuce_version" value="6.3.2.RELEASE" />
+    <var name="spring_version" value="3.2.4" />
 </vars>
