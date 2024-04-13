@@ -174,3 +174,125 @@ Alternatively, you can use the provided builders for them:
         .text("text)
         .build();
 ```
+
+## Inline keyboard now use a new row object
+
+When creating inline keyboards, you now have available a `InlineKeyboardRow` so a keyboard would be a `List<InlineKeyboardRow>`:
+
+Here are a couple of example of how the code would change using builders:
+
+<compare>
+    <code-block lang="java">
+        InlineKeyboardMarkup keyboard = InlineKeyboardMarkup
+                .builder()
+                .keyboardRow(Arrays.asList(InlineKeyboardButton
+                                .builder()
+                                .text("Row 1 Column 1")
+                                .callbackData("Row 1 Column 1")
+                                .build(),
+                        InlineKeyboardButton
+                                .builder()
+                                .text("Row 1 Column 2")
+                                .callbackData("Row 1 Column 2")
+                                .build())
+                )
+                .keyboardRow(Arrays.asList(InlineKeyboardButton
+                        .builder()
+                        .text("Row 2 Column 1")
+                        .callbackData("Row 2 Column 1")
+                        .build(),
+                        InlineKeyboardButton
+                                .builder()
+                                .text("Row 2 Column 2")
+                                .callbackData("Row 2 Column 2")
+                                .build())
+                )
+                .build();
+    </code-block>
+    <code-block lang="java">
+        InlineKeyboardMarkup keyboard = InlineKeyboardMarkup
+                .builder()
+                .keyboardRow(new InlineKeyboardRow(InlineKeyboardButton
+                        .builder()
+                        .text("Row 1 Column 1")
+                        .callbackData("Row 1 Column 1")
+                        .build(),
+                        InlineKeyboardButton
+                        .builder()
+                        .text("Row 1 Column 2")
+                        .callbackData("Row 1 Column 2")
+                        .build())
+                )
+                .keyboardRow(new InlineKeyboardRow(InlineKeyboardButton
+                        .builder()
+                        .text("Row 2 Column 1")
+                        .callbackData("Row 2 Column 1")
+                        .build(),
+                        InlineKeyboardButton
+                                .builder()
+                                .text("Row 2 Column 2")
+                                .callbackData("Row 2 Column 2")
+                                .build())
+                )
+                .build();
+    </code-block>
+</compare>
+
+or 
+
+<compare>
+    <code-block lang="java">
+       InlineKeyboardMarkup keyboard = InlineKeyboardMarkup
+                .builder()
+                .keyboard(Arrays.asList(
+                        Arrays.asList(InlineKeyboardButton
+                                        .builder()
+                                        .text("Row 1 Column 1")
+                                        .callbackData("Row 1 Column 1")
+                                        .build(),
+                                InlineKeyboardButton
+                                        .builder()
+                                        .text("Row 1 Column 2")
+                                        .callbackData("Row 1 Column 2")
+                                        .build()),
+                        Arrays.asList(InlineKeyboardButton
+                                        .builder()
+                                        .text("Row 2 Column 1")
+                                        .callbackData("Row 2 Column 1")
+                                        .build(),
+                                InlineKeyboardButton
+                                        .builder()
+                                        .text("Row 2 Column 2")
+                                        .callbackData("Row 2 Column 2")
+                                        .build())
+                ))
+                .build();
+    </code-block>
+    <code-block lang="java">
+        InlineKeyboardMarkup keyboard = InlineKeyboardMarkup
+                .builder()
+                .keyboard(List.of(
+                        new InlineKeyboardRow(InlineKeyboardButton
+                                .builder()
+                                .text("Row 1 Column 1")
+                                .callbackData("Row 1 Column 1")
+                                .build(),
+                                InlineKeyboardButton
+                                        .builder()
+                                        .text("Row 1 Column 2")
+                                        .callbackData("Row 1 Column 2")
+                                        .build()),
+                        new InlineKeyboardRow(InlineKeyboardButton
+                                .builder()
+                                .text("Row 2 Column 1")
+                                .callbackData("Row 2 Column 1")
+                                .build(),
+                                InlineKeyboardButton
+                                        .builder()
+                                        .text("Row 2 Column 2")
+                                        .callbackData("Row 2 Column 2")
+                                        .build())
+                ))
+                .build();
+    </code-block>
+</compare>
