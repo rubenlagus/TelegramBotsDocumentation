@@ -5,6 +5,9 @@ Find here changelog for all releases though the years
 ## 7.2.1
 1. Fix: #1275 #1316
 2. Set defaults GetUpdates values to 100 updates and 50 timeout
+3. Extra helper for Proxy creation
+
+[How to update to version 7.2.0](How-To-Update.md#to-version-7-2-1)
 
 ## 7.2.0
 1. Update Api version [7.2](https://core.telegram.org/bots/api-changelog#march-31-2024)

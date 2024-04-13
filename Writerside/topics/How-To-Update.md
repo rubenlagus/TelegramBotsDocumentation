@@ -2,6 +2,9 @@
 
 If there are any changes required to update to a new version, they'll be listed here.
 
+## To version 7.2.1
+1. Instead of using `TelegramOkHttpClientFactory.ProxyOkHttpClientCreator` use either `TelegramOkHttpClientFactory.HttpProxyOkHttpClientCreator` or `TelegramOkHttpClientFactory.SocksProxyOkHttpClientCreator`
+
 ## To version 7.2.0
 1. When using `CreateNewStickerSet`, instead of providing a common format using `setStickerFormat`, provide each `InputSticker` with its own format. Methods `setStickerFormat` and `getStickerFormat` are kept only for backward compatibility and work only when all stickers have the same format.
 2. `SetStickerSetThumbnail` and `InputSticker` contain a `format` field mandatory.

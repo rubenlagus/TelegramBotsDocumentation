@@ -351,7 +351,7 @@ public class MyBotConfiguration {
             @Value("${username:squid}") String username,
             @Value("${password}") String password
     ) {
-         return new TelegramOkHttpClientFactory.ProxyOkHttpClientCreator(
+         return new TelegramOkHttpClientFactory.HttpProxyOkHttpClientCreator(
                 () -> new Proxy(Proxy.Type.HTTP, new InetSocketAddress(hostname, port)),
                 () -> (route, response) -> {
                     String credential = Credentials.basic(username, password);
@@ -384,8 +384,8 @@ public class MyBotConfiguration {
             }
         });
 
-        return new TelegramOkHttpClientFactory.ProxyOkHttpClientCreator(
-                () -> new Proxy(Proxy.Type.SOCKS, new InetSocketAddress(hostname, port)), () -> null
+        return new TelegramOkHttpClientFactory.SocksProxyOkHttpClientCreator(
+                () -> new Proxy(Proxy.Type.SOCKS, new InetSocketAddress(hostname, port))
         ).get();
     }
 
