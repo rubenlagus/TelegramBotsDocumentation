@@ -2,6 +2,9 @@
 
 Find here changelog for all releases though the years
 
+## 7.4.1
+1. Fix #1373 and #1365
+
 ## 7.4.0
 1. Update Api version [7.4](https://core.telegram.org/bots/api-changelog#may-28-2024)
 
