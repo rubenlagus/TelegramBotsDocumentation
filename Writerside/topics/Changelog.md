@@ -3,7 +3,7 @@
 Find here changelog for all releases though the years
 
 ## 7.4.2
-1. Fix #1378
+1. Fix #1379
 
 ## 7.4.1
 1. Fix #1373 and #1365
