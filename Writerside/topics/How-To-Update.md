@@ -2,6 +2,9 @@
 
 If there are any changes required to update to a new version, they'll be listed here.
 
+## To version 7.6.0
+1. If you are using a custom TelegramClient, you'll need to implement the new methods for `SendPaidMedia`
+
 ## To version 7.3.0
 1. Class `org.telegram.telegrambots.meta.api.objects.Chat` has been split (as per API guidelines) into `org.telegram.telegrambots.meta.api.objects.chat.Chat` and `org.telegram.telegrambots.meta.api.objects.chat.ChatFullInfo`, old class is still available but unused.
 
