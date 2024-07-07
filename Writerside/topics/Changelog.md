@@ -2,6 +2,9 @@
 
 Find here changelog for all releases though the years
 
+## 7.7.0
+1. Update Api version [7.7](https://core.telegram.org/bots/api-changelog#july-7-2024)
+
 ## 7.6.1
 1. Fix SendInvoice method
 
