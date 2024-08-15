@@ -2,6 +2,12 @@
 
 Find here changelog for all releases though the years
 
+## 7.7.3
+1. Fix #1411
+
+## 7.7.2
+1. Fix bug when download files as streams
+
 ## 7.7.1
 1. Fix #1402
 
