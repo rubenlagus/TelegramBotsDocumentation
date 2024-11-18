@@ -2,6 +2,10 @@
 
 Find here changelog for all releases though the years
 
+## 7.11.0
+1. Update Api version [7.11](https://core.telegram.org/bots/api-changelog#october-31-2024)
+2. Fix: #1454
+
 ## 7.10.0
 1. Update Api version [7.10](https://core.telegram.org/bots/api-changelog#september-6-2024)
 
