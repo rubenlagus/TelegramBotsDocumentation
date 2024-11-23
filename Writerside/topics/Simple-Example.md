@@ -88,8 +88,12 @@ public class Application {
           String botToken = "12345:YOUR_TOKEN"; 
           // Instantiate Telegram Bots API
           TelegramBotsLongPollingApplication botsApplication = new TelegramBotsLongPollingApplication();
+          // Create Bot
+          HelloBot bot = new HelloBot();
+          // Enable abilities
+          bot.onRegister();
           // Register your newly created AbilityBot
-          botsApplication.registerBot(botToken, new HelloBot());
+          botsApplication.registerBot(botToken, bot);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
