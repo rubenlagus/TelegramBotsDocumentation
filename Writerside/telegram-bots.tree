@@ -10,6 +10,7 @@
     <toc-element topic="Getting-Started.md"/>
     <toc-element topic="FAQ.md"/>
     <toc-element topic="Handling-Bot-Tokens.md"/>
+    <toc-element topic="Client-Jetty.md"/>
     <toc-element topic="Java-Telegram-Bot-Tutorial.md">
         <toc-element topic="Lesson-1.md"/>
         <toc-element topic="Lesson-2.md"/>
