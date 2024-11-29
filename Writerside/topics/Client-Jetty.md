@@ -3,7 +3,7 @@ By default TelegramBotsApi perform HTTP requests using OkHttp library.
 If for some reason you don't want or can't use it, there is another implementation of `AbstractTelegramClient` that perform HTTP requests using Jetty HttpClient.
 To switch from OkHttp to Jetty Client you have to use `telegrambots-client-jetty-adapter` instead of `telegrambots-client`:
 
-```
+```xml
 <dependency>
     <groupId>org.telegram</groupId>
     <artifactId>telegrambots-client-jetty-adapter</artifactId>
@@ -11,7 +11,7 @@ To switch from OkHttp to Jetty Client you have to use `telegrambots-client-jetty
 ```
 
 Now you can create an instance of `JettyTelegramClient` with one of provided constructors:
-```
+```java
 JettyTelegramClient(ObjectMapper objectMapper, HttpClient client, String botToken, TelegramUrl telegramUrl);
 JettyTelegramClient(HttpClient client, String botToken, TelegramUrl telegramUrl);
 JettyTelegramClient(HttpClient client, String botToken);
@@ -20,12 +20,12 @@ JettyTelegramClient(String botToken);
 ```
 
 Simple usage:
-```
+```java
 // create telegram client instance with default HttpClient configuration
 TelegramClient telegramClient = new JettyTelegramClient("TOKEN");
 ```
 Advanced usage:
-```
+```java
 // create fine-tuned Jetty HttpClient
 QueuedThreadPool threadPool = new QueuedThreadPool(4);
 threadPool.setName("jetty-client-qtp");
