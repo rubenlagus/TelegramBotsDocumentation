@@ -5,7 +5,7 @@
     <var name="project_url" value="https://github.com/rubenlagus/TelegramBots"/>
     <var name="tg_url" value="https://core.telegram.org/bots/api"/>
     <var name="tg" value="Telegram Bots Api"/>
-    <var name="version" value="7.10.0" />
+    <var name="version" value="8.0.0" />
     <var name="emoji_version" value="5.1.1" />
     <var name="lettuce_version" value="6.3.2.RELEASE" />
     <var name="spring_version" value="3.2.4" />

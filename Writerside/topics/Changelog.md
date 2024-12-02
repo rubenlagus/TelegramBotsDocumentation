@@ -2,6 +2,11 @@
 
 Find here changelog for all releases though the years
 
+## 8.0.0
+1. Update Api version [8.0](https://core.telegram.org/bots/api-changelog#november-17-2024)
+2. Adding new [Jetty Client](Client-Jetty.md)
+3. Fix: #1434, #1438, #1441, #1443, #1444, #1459
+
 ## 7.11.0
 1. Update Api version [7.11](https://core.telegram.org/bots/api-changelog#october-31-2024)
 2. Fix: #1454
