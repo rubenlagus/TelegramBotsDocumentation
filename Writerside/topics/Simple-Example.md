@@ -34,7 +34,7 @@ As with any Java project, you will need to set your dependencies.
 ## Bot Declaration
 To use the abilities module, you will need to extend AbilityBot.
 ```java
-import bot.org.telegram.telegrambots.abilitybots.api.AbilityBot;
+import org.telegram.telegrambots.abilitybots.api.bot.AbilityBot;
 
 public class HelloBot extends AbilityBot {
   ...
