@@ -194,10 +194,10 @@ Let's complete our amazing Bot that we created earlier:
             // We check if the update has a message and the message has text
             if (update.hasMessage() && update.getMessage().hasText()) {
                 // Create your send message object
-                SendMessage sendMessage = new SendMessage(update.getMessage().getChatId(), update.getMessage().getText());
+                SendMessage sendMessage = new SendMessage(update.getMessage().getChatId().toString(), update.getMessage().getText());
                 try {
                    // Execute it
-                   telegramClient.execute(method);
+                   telegramClient.execute(sendMessage);
                 } catch (TelegramApiException e) {
                    e.printStackTrace();
                 }
