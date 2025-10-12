@@ -17,8 +17,11 @@
         </variables>
     </build-profile>
     <footer>
+        <social type="telegram" href="https://telegram.me/JavaBotsApi">Writerside on Twitter</social>
+
         <link href="https://github.com/rubenlagus/TelegramBots/issues">Issue Tracker</link>
         <link href="https://telegram.me/JavaBotsApi">Telegram Chat</link>
-        <copyright>Ruben Bermudez 2016-2024</copyright>
+
+        <copyright>Ruben Bermudez 2016-2025</copyright>
     </footer>
 </buildprofiles>
