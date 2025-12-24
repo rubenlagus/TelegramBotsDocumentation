@@ -80,28 +80,30 @@ Quick example here that is showing ChatActions for commands like "/type" or "/re
 
 ```java
 if (update.hasMessage() && update.getMessage().hasText()) {
-
     String text = update.getMessage().getText();
+    Long chatId = update.getMessage().getChatId();
 
-    SendChatAction sendChatAction = new SendChatAction();
-    sendChatAction.setChatId(update.getMessage().getChatId());
-
+    // 1. Determine the action based on the command
+    ActionType action;
     if (text.equals("/type")) {
-        // -> "typing"
-        sendChatAction.setAction(ActionType.TYPING);
-        // -> "recording a voice message"
+        action = ActionType.TYPING;
     } else if (text.equals("/record_audio")) {
-        sendChatAction.setAction(ActionType.RECORD_VOICE);
+        action = ActionType.RECORD_VOICE;
     } else {
-        // -> more actions in the Enum ActionType
-        // For information: https://core.telegram.org/bots/api#sendchataction
-        sendChatAction.setAction(ActionType.UPLOAD_DOCUMENT);
+        // Default or other actions from ActionType enum
+        action = ActionType.UPLOAD_DOCUMENT;
     }
 
+    // 2. Use the Builder to construct the object with required arguments
+    SendChatAction sendChatAction = SendChatAction.builder()
+            .chatId(chatId.toString()) // chatId is required
+            .action(action.toString()) // action is required
+            .build();
+
     try {
-        Boolean wasSuccessfull = telegramClient.execute(sendChatAction);
+        // 3. Execute the action
+        telegramClient.execute(sendChatAction);
     } catch (TelegramApiException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
     }
 }
