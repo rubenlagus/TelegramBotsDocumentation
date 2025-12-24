@@ -39,8 +39,7 @@ public String getFilePath(PhotoSize photo) {
         return photo.getFilePath();
     } else { // If not, let find it
         // We create a GetFile method and set the file_id from the photo
-        GetFile getFileMethod = new GetFile();
-        getFileMethod.setFileId(photo.getFileId());
+        GetFile getFileMethod = new GetFile(photo.getFileId());
         try {
             // We execute the method using AbsSender::execute method.
             File file = telegramClient.execute(getFileMethod);
@@ -50,7 +49,7 @@ public String getFilePath(PhotoSize photo) {
             e.printStackTrace();
         }
     }
-    
+
     return null; // Just in case
 }
 ```
