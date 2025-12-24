@@ -187,21 +187,22 @@ Let's complete our amazing Bot that we created earlier:
 
    ```java
       public class MyAmazingBot implements LongPollingSingleThreadUpdateConsumer {
-         private TelegramClient telegramClient = new OkHttpTelegramClient("12345:YOUR_TOKEN");
-      
-         @Override
-         public void consume(Update update) {
-            // We check if the update has a message and the message has text
-            if (update.hasMessage() && update.getMessage().hasText()) {
-                // Create your send message object
-                SendMessage sendMessage = new SendMessage(update.getMessage().getChatId(), update.getMessage().getText());
-                try {
-                   // Execute it
-                   telegramClient.execute(method);
-                } catch (TelegramApiException e) {
-                   e.printStackTrace();
-                }
-            }
-         }
+       private TelegramClient telegramClient = new OkHttpTelegramClient("12345:YOUR_TOKEN");
+
+       @Override
+       public void consume(Update update) {
+        // We check if the update has a message and the message has text
+        if (update.hasMessage() && update.getMessage().hasText()) {
+           // Create your send message object
+           SendMessage sendMessage = new SendMessage(String.valueOf(update.getMessage().getChatId()), 
+            update.getMessage().getText());
+           try {
+             // Execute it
+             telegramClient.execute(sendMessage);
+          } catch (TelegramApiException e) {
+             e.printStackTrace();
+          }
+        }
       }
+    }
    ```
