@@ -267,40 +267,40 @@ Custom keyboards can be appended to messages using the `setReplyMarkup`. In this
 
 ```java
    public void sendInlineKeyboard(String chatId) {
-      SendMessage message = new SendMessage();
-      message.setChatId(chatId);
-      message.setText("Inline model below.");
-      
-      // Create InlineKeyboardMarkup object
-      InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-      // Create the keyboard (list of InlineKeyboardButton list)
-      List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
-      // Create a list for buttons
-      List<InlineKeyboardButton> Buttons = new ArrayList<InlineKeyboardButton>();
-      // Initialize each button, the text must be written
-      InlineKeyboardButton youtube= new InlineKeyboardButton("youtube");
-      // Also must use exactly one of the optional fields,it can edit  by set method
-      youtube.setUrl("https://www.youtube.com");
-      // Add button to the list
-      Buttons.add(youtube);
-      // Initialize each button, the text must be written
-      InlineKeyboardButton github= new InlineKeyboardButton("github");
-      // Also must use exactly one of the optional fields,it can edit  by set method
-      github.setUrl("https://github.com");
-      // Add button to the list
-      Buttons.add(github);
-      keyboard.add(Buttons);
-      inlineKeyboardMarkup.setKeyboard(keyboard);
-      // Add it to the message
-      message.setReplyMarkup(inlineKeyboardMarkup);
-      
-      try {
-         // Send the message
-         telegramClient.execute(message);
-      } catch (TelegramApiException e) {
-         e.printStackTrace();
-      }
-   }
+	    // 1. Define the buttons
+	    InlineKeyboardButton youtube = InlineKeyboardButton.builder()
+	            .text("YouTube")
+	            .url("https://www.youtube.com")
+	            .build();
+	
+	    InlineKeyboardButton github = InlineKeyboardButton.builder()
+	            .text("GitHub")
+	            .url("https://github.com")
+	            .build();
+	
+	    // 2. Create the Row (This is the missing step in the FAQ)
+	    // InlineKeyboardRow replaces List<InlineKeyboardButton>
+	    InlineKeyboardRow row = new InlineKeyboardRow(youtube, github);
+	
+	    // 3. Build the Markup
+	    // The builder/constructor now expects a List<InlineKeyboardRow>
+	    InlineKeyboardMarkup inlineKeyboardMarkup = InlineKeyboardMarkup.builder()
+	            .keyboardRow(row) // The builder allows adding a single row easily
+	            .build();
+	
+	    // 4. Build and Send the Message
+	    SendMessage message = SendMessage.builder()
+	            .chatId(chatId)
+	            .text("Inline model below.")
+	            .replyMarkup(inlineKeyboardMarkup)
+	            .build();
+	
+	    try {
+	        telegramClient.execute(message);
+	    } catch (TelegramApiException e) {
+	        e.printStackTrace();
+	    }
+	}
 ```
 
 ## How can I run my bot?
