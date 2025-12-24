@@ -223,42 +223,44 @@ Custom keyboards can be appended to messages using the `setReplyMarkup`. In this
 
 ```java
     public void sendCustomKeyboard(String chatId) {
-        SendMessage message = new SendMessage();
-        message.setChatId(chatId);
-        message.setText("Custom message text");
-
-        // Create ReplyKeyboardMarkup object
-        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
-        // Create the keyboard (list of keyboard rows)
-        List<KeyboardRow> keyboard = new ArrayList<>();
-        // Create a keyboard row
-        KeyboardRow row = new KeyboardRow();
-        // Set each button, you can also use KeyboardButton objects if you need something else than text
-        row.add("Row 1 Button 1");
-        row.add("Row 1 Button 2");
-        row.add("Row 1 Button 3");
-        // Add the first row to the keyboard
-        keyboard.add(row);
-        // Create another keyboard row
-        row = new KeyboardRow();
-        // Set each button for the second line
-        row.add("Row 2 Button 1");
-        row.add("Row 2 Button 2");
-        row.add("Row 2 Button 3");
-        // Add the second row to the keyboard
-        keyboard.add(row);
-        // Set the keyboard to the markup
-        keyboardMarkup.setKeyboard(keyboard);
-        // Add it to the message
-        message.setReplyMarkup(keyboardMarkup);
-
-        try {
-            // Send the message
-            telegramClient.execute(message);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
+	    // 1. Prepare the rows and buttons
+	    List<KeyboardRow> keyboard = new ArrayList<>();
+	
+	    // Create the first row
+	    KeyboardRow row1 = new KeyboardRow();
+	    row1.add("Row 1 Button 1");
+	    row1.add("Row 1 Button 2");
+	    row1.add("Row 1 Button 3");
+	    keyboard.add(row1);
+	
+	    // Create the second row
+	    KeyboardRow row2 = new KeyboardRow();
+	    row2.add("Row 2 Button 1");
+	    row2.add("Row 2 Button 2");
+	    row2.add("Row 2 Button 3");
+	    keyboard.add(row2);
+	
+	    // 2. Build the ReplyKeyboardMarkup
+	    ReplyKeyboardMarkup keyboardMarkup = ReplyKeyboardMarkup.builder()
+	            .keyboard(keyboard)           // The constructor/builder now requires the list
+	            .resizeKeyboard(true)         // Recommended: makes buttons fit the screen
+	            .oneTimeKeyboard(false)       // Keeps the keyboard visible after use
+	            .selective(false)
+	            .build();
+	
+	    // 3. Build the SendMessage with the markup
+	    SendMessage message = SendMessage.builder()
+	            .chatId(chatId)
+	            .text("Custom message text")
+	            .replyMarkup(keyboardMarkup)
+	            .build();
+	
+	    try {
+	        telegramClient.execute(message);
+	    } catch (TelegramApiException e) {
+	        e.printStackTrace();
+	    }
+	}
 ```
 
 [InlineKeyboardMarkup](https://core.telegram.org/bots/api#inlinekeyboardmarkup) use list to capture the buttons instead of KeyboardRow.
