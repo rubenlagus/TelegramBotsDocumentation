@@ -35,22 +35,26 @@ Once we have the *photo* we have two options: The `file_path` is already present
 public String getFilePath(PhotoSize photo) {
     Objects.requireNonNull(photo);
 
-    if (photo.getFilePath() != null) { // If the file_path is already present, we are done!
+    if (photo.getFilePath() != null) {
         return photo.getFilePath();
-    } else { // If not, let find it
-        // We create a GetFile method and set the file_id from the photo
-        GetFile getFileMethod = new GetFile(photo.getFileId());
+    } else {
+        // Use the Builder pattern for GetFile instead of empty constructor + setter
+        GetFile getFileMethod = GetFile.builder()
+                .fileId(photo.getFileId())
+                .build();
+        
         try {
-            // We execute the method using AbsSender::execute method.
-            File file = telegramClient.execute(getFileMethod);
-            // We now have the file_path
-            return file.getFilePath();
+            // We use the full package name or a specific import to avoid 'File' confusion
+            org.telegram.telegrambots.meta.api.objects.File telegramFile = telegramClient.execute(getFileMethod);
+            
+            // Return the path on Telegram's servers
+            return telegramFile.getFilePath();
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
     }
 
-    return null; // Just in case
+    return null;
 }
 ```
 
@@ -109,48 +113,48 @@ There are several methods to send a photo to a user using `sendPhoto` method: Wi
 
 ```java
     public void sendImageFromUrl(String url, String chatId) {
-        // Create send method
-        SendPhoto sendPhotoRequest = new SendPhoto();
-        // Set destination chat id
-        sendPhotoRequest.setChatId(chatId);
-        // Set the photo url as a simple photo
-        sendPhotoRequest.setPhoto(new InputFile(url));
-        try {
-            // Execute the method
-            telegramClient.execute(sendPhotoRequest);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
+     // Use the builder to set required fields: chatId and photo
+     SendPhoto sendPhotoRequest = SendPhoto.builder()
+            .chatId(chatId)
+            .photo(new InputFile(url))
+            .build();
+
+     try {
+         telegramClient.execute(sendPhotoRequest);
+     } catch (TelegramApiException e) {
+         e.printStackTrace();
+     }
+   }
 
     public void sendImageFromFileId(String fileId, String chatId) {
-        // Create send method
-        SendPhoto sendPhotoRequest = new SendPhoto();
-        // Set destination chat id
-        sendPhotoRequest.setChatId(chatId);
-        // Set the photo url as a simple photo
-        sendPhotoRequest.setPhoto(new InputFile(fileId));
-        try {
-            // Execute the method
-            telegramClient.execute(sendPhotoRequest);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
+      // Re-using a File ID already present on Telegram's servers
+      SendPhoto sendPhotoRequest = SendPhoto.builder()
+            .chatId(chatId)
+            .photo(new InputFile(fileId))
+            .build();
+
+      try {
+          telegramClient.execute(sendPhotoRequest);
+      } catch (TelegramApiException e) {
+          e.printStackTrace();
+      }
+   }
 
     public void sendImageUploadingAFile(String filePath, String chatId) {
-        // Create send method
-        SendPhoto sendPhotoRequest = new SendPhoto();
-        // Set destination chat id
-        sendPhotoRequest.setChatId(chatId);
-        // Set the photo file as a new photo (You can also use InputStream with a constructor overload)
-        sendPhotoRequest.setPhoto(new InputFile(new File(filePath)));
-        try {
-            // Execute the method
-            telegramClient.execute(sendPhotoRequest);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+      // Create a Java File object from the path
+      File imageFile = new File(filePath);
+
+      // Ensure InputFile wraps the File object correctly for a multipart upload
+      SendPhoto sendPhotoRequest = SendPhoto.builder()
+            .chatId(chatId)
+            .photo(new InputFile(imageFile, imageFile.getName()))
+            .build();
+
+      try {
+          telegramClient.execute(sendPhotoRequest);
+      } catch (TelegramApiException e) {
+          e.printStackTrace();
+     }
     }
 ```
 
