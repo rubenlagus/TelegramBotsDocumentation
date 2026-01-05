@@ -95,7 +95,7 @@ public class PhotoBot implements LongPollingSingleThreadUpdateConsumer {
                         .builder()
                         .chatId(chat_id)
                         .text("Keyboard hidden")
-                        .replyMarkup(new ReplyKeyboardRemove())
+                        .replyMarkup(ReplyKeyboardRemove.builder().build())
                         .build();
                 try {
                     telegramClient.execute(message); // Call method to send the photo
