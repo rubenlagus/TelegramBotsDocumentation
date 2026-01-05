@@ -35,23 +35,26 @@ Once we have the *photo* we have two options: The `file_path` is already present
 public String getFilePath(PhotoSize photo) {
     Objects.requireNonNull(photo);
 
-    if (photo.getFilePath() != null) { // If the file_path is already present, we are done!
+    if (photo.getFilePath() != null) {
         return photo.getFilePath();
-    } else { // If not, let find it
-        // We create a GetFile method and set the file_id from the photo
-        GetFile getFileMethod = new GetFile();
-        getFileMethod.setFileId(photo.getFileId());
+    } else {
+        // Use the Builder pattern for GetFile instead of empty constructor + setter
+        GetFile getFileMethod = GetFile.builder()
+                .fileId(photo.getFileId())
+                .build();
+        
         try {
-            // We execute the method using AbsSender::execute method.
-            File file = telegramClient.execute(getFileMethod);
-            // We now have the file_path
-            return file.getFilePath();
+            // We use the full package name or a specific import to avoid 'File' confusion
+            org.telegram.telegrambots.meta.api.objects.File telegramFile = telegramClient.execute(getFileMethod);
+            
+            // Return the path on Telegram's servers
+            return telegramFile.getFilePath();
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
     }
-    
-    return null; // Just in case
+
+    return null;
 }
 ```
 
@@ -77,28 +80,30 @@ Quick example here that is showing ChatActions for commands like "/type" or "/re
 
 ```java
 if (update.hasMessage() && update.getMessage().hasText()) {
-
     String text = update.getMessage().getText();
+    Long chatId = update.getMessage().getChatId();
 
-    SendChatAction sendChatAction = new SendChatAction();
-    sendChatAction.setChatId(update.getMessage().getChatId());
-
+    // 1. Determine the action based on the command
+    ActionType action;
     if (text.equals("/type")) {
-        // -> "typing"
-        sendChatAction.setAction(ActionType.TYPING);
-        // -> "recording a voice message"
+        action = ActionType.TYPING;
     } else if (text.equals("/record_audio")) {
-        sendChatAction.setAction(ActionType.RECORD_VOICE);
+        action = ActionType.RECORD_VOICE;
     } else {
-        // -> more actions in the Enum ActionType
-        // For information: https://core.telegram.org/bots/api#sendchataction
-        sendChatAction.setAction(ActionType.UPLOAD_DOCUMENT);
+        // Default or other actions from ActionType enum
+        action = ActionType.UPLOAD_DOCUMENT;
     }
 
+    // 2. Use the Builder to construct the object with required arguments
+    SendChatAction sendChatAction = SendChatAction.builder()
+            .chatId(chatId.toString()) // chatId is required
+            .action(action.toString()) // action is required
+            .build();
+
     try {
-        Boolean wasSuccessfull = telegramClient.execute(sendChatAction);
+        // 3. Execute the action
+        telegramClient.execute(sendChatAction);
     } catch (TelegramApiException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
     }
 }
@@ -110,48 +115,48 @@ There are several methods to send a photo to a user using `sendPhoto` method: Wi
 
 ```java
     public void sendImageFromUrl(String url, String chatId) {
-        // Create send method
-        SendPhoto sendPhotoRequest = new SendPhoto();
-        // Set destination chat id
-        sendPhotoRequest.setChatId(chatId);
-        // Set the photo url as a simple photo
-        sendPhotoRequest.setPhoto(new InputFile(url));
-        try {
-            // Execute the method
-            telegramClient.execute(sendPhotoRequest);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
+     // Use the builder to set required fields: chatId and photo
+     SendPhoto sendPhotoRequest = SendPhoto.builder()
+            .chatId(chatId)
+            .photo(new InputFile(url))
+            .build();
+
+     try {
+         telegramClient.execute(sendPhotoRequest);
+     } catch (TelegramApiException e) {
+         e.printStackTrace();
+     }
+   }
 
     public void sendImageFromFileId(String fileId, String chatId) {
-        // Create send method
-        SendPhoto sendPhotoRequest = new SendPhoto();
-        // Set destination chat id
-        sendPhotoRequest.setChatId(chatId);
-        // Set the photo url as a simple photo
-        sendPhotoRequest.setPhoto(new InputFile(fileId));
-        try {
-            // Execute the method
-            telegramClient.execute(sendPhotoRequest);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
+      // Re-using a File ID already present on Telegram's servers
+      SendPhoto sendPhotoRequest = SendPhoto.builder()
+            .chatId(chatId)
+            .photo(new InputFile(fileId))
+            .build();
+
+      try {
+          telegramClient.execute(sendPhotoRequest);
+      } catch (TelegramApiException e) {
+          e.printStackTrace();
+      }
+   }
 
     public void sendImageUploadingAFile(String filePath, String chatId) {
-        // Create send method
-        SendPhoto sendPhotoRequest = new SendPhoto();
-        // Set destination chat id
-        sendPhotoRequest.setChatId(chatId);
-        // Set the photo file as a new photo (You can also use InputStream with a constructor overload)
-        sendPhotoRequest.setPhoto(new InputFile(new File(filePath)));
-        try {
-            // Execute the method
-            telegramClient.execute(sendPhotoRequest);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+      // Create a Java File object from the path
+      File imageFile = new File(filePath);
+
+      // Ensure InputFile wraps the File object correctly for a multipart upload
+      SendPhoto sendPhotoRequest = SendPhoto.builder()
+            .chatId(chatId)
+            .photo(new InputFile(imageFile, imageFile.getName()))
+            .build();
+
+      try {
+          telegramClient.execute(sendPhotoRequest);
+      } catch (TelegramApiException e) {
+          e.printStackTrace();
+     }
     }
 ```
 
@@ -218,82 +223,84 @@ Custom keyboards can be appended to messages using the `setReplyMarkup`. In this
 
 ```java
     public void sendCustomKeyboard(String chatId) {
-        SendMessage message = new SendMessage();
-        message.setChatId(chatId);
-        message.setText("Custom message text");
-
-        // Create ReplyKeyboardMarkup object
-        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
-        // Create the keyboard (list of keyboard rows)
-        List<KeyboardRow> keyboard = new ArrayList<>();
-        // Create a keyboard row
-        KeyboardRow row = new KeyboardRow();
-        // Set each button, you can also use KeyboardButton objects if you need something else than text
-        row.add("Row 1 Button 1");
-        row.add("Row 1 Button 2");
-        row.add("Row 1 Button 3");
-        // Add the first row to the keyboard
-        keyboard.add(row);
-        // Create another keyboard row
-        row = new KeyboardRow();
-        // Set each button for the second line
-        row.add("Row 2 Button 1");
-        row.add("Row 2 Button 2");
-        row.add("Row 2 Button 3");
-        // Add the second row to the keyboard
-        keyboard.add(row);
-        // Set the keyboard to the markup
-        keyboardMarkup.setKeyboard(keyboard);
-        // Add it to the message
-        message.setReplyMarkup(keyboardMarkup);
-
-        try {
-            // Send the message
-            telegramClient.execute(message);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
+	    // 1. Prepare the rows and buttons
+	    List<KeyboardRow> keyboard = new ArrayList<>();
+	
+	    // Create the first row
+	    KeyboardRow row1 = new KeyboardRow();
+	    row1.add("Row 1 Button 1");
+	    row1.add("Row 1 Button 2");
+	    row1.add("Row 1 Button 3");
+	    keyboard.add(row1);
+	
+	    // Create the second row
+	    KeyboardRow row2 = new KeyboardRow();
+	    row2.add("Row 2 Button 1");
+	    row2.add("Row 2 Button 2");
+	    row2.add("Row 2 Button 3");
+	    keyboard.add(row2);
+	
+	    // 2. Build the ReplyKeyboardMarkup
+	    ReplyKeyboardMarkup keyboardMarkup = ReplyKeyboardMarkup.builder()
+	            .keyboard(keyboard)           // The constructor/builder now requires the list
+	            .resizeKeyboard(true)         // Recommended: makes buttons fit the screen
+	            .oneTimeKeyboard(false)       // Keeps the keyboard visible after use
+	            .selective(false)
+	            .build();
+	
+	    // 3. Build the SendMessage with the markup
+	    SendMessage message = SendMessage.builder()
+	            .chatId(chatId)
+	            .text("Custom message text")
+	            .replyMarkup(keyboardMarkup)
+	            .build();
+	
+	    try {
+	        telegramClient.execute(message);
+	    } catch (TelegramApiException e) {
+	        e.printStackTrace();
+	    }
+	}
 ```
 
 [InlineKeyboardMarkup](https://core.telegram.org/bots/api#inlinekeyboardmarkup) use list to capture the buttons instead of KeyboardRow.
 
 ```java
    public void sendInlineKeyboard(String chatId) {
-      SendMessage message = new SendMessage();
-      message.setChatId(chatId);
-      message.setText("Inline model below.");
-      
-      // Create InlineKeyboardMarkup object
-      InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-      // Create the keyboard (list of InlineKeyboardButton list)
-      List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
-      // Create a list for buttons
-      List<InlineKeyboardButton> Buttons = new ArrayList<InlineKeyboardButton>();
-      // Initialize each button, the text must be written
-      InlineKeyboardButton youtube= new InlineKeyboardButton("youtube");
-      // Also must use exactly one of the optional fields,it can edit  by set method
-      youtube.setUrl("https://www.youtube.com");
-      // Add button to the list
-      Buttons.add(youtube);
-      // Initialize each button, the text must be written
-      InlineKeyboardButton github= new InlineKeyboardButton("github");
-      // Also must use exactly one of the optional fields,it can edit  by set method
-      github.setUrl("https://github.com");
-      // Add button to the list
-      Buttons.add(github);
-      keyboard.add(Buttons);
-      inlineKeyboardMarkup.setKeyboard(keyboard);
-      // Add it to the message
-      message.setReplyMarkup(inlineKeyboardMarkup);
-      
-      try {
-         // Send the message
-         telegramClient.execute(message);
-      } catch (TelegramApiException e) {
-         e.printStackTrace();
-      }
-   }
+	    // 1. Define the buttons
+	    InlineKeyboardButton youtube = InlineKeyboardButton.builder()
+	            .text("YouTube")
+	            .url("https://www.youtube.com")
+	            .build();
+	
+	    InlineKeyboardButton github = InlineKeyboardButton.builder()
+	            .text("GitHub")
+	            .url("https://github.com")
+	            .build();
+	
+	    // 2. Create the Row (This is the missing step in the FAQ)
+	    // InlineKeyboardRow replaces List<InlineKeyboardButton>
+	    InlineKeyboardRow row = new InlineKeyboardRow(youtube, github);
+	
+	    // 3. Build the Markup
+	    // The builder/constructor now expects a List<InlineKeyboardRow>
+	    InlineKeyboardMarkup inlineKeyboardMarkup = InlineKeyboardMarkup.builder()
+	            .keyboardRow(row) // The builder allows adding a single row easily
+	            .build();
+	
+	    // 4. Build and Send the Message
+	    SendMessage message = SendMessage.builder()
+	            .chatId(chatId)
+	            .text("Inline model below.")
+	            .replyMarkup(inlineKeyboardMarkup)
+	            .build();
+	
+	    try {
+	        telegramClient.execute(message);
+	    } catch (TelegramApiException e) {
+	        e.printStackTrace();
+	    }
+	}
 ```
 
 ## How can I run my bot?
