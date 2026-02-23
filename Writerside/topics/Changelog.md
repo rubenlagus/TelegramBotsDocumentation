@@ -2,6 +2,9 @@
 
 Find here changelog for all releases though the years
 
+## 9.4.0
+1. Update Api version [9.4](https://core.telegram.org/bots/api-changelog#february-9-2026)
+
 ## 9.3.0
 1. Update Api version [9.3](https://core.telegram.org/bots/api-changelog#december-31-2025)
 2. Bug fixes: #1548, #1544, #1545, #1546, #1547, #1550, #1552, #1555, #1558
