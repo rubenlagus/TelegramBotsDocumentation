@@ -2,6 +2,16 @@
 
 If there are any changes required to update to a new version, they'll be listed here.
 
+## To version 10.0.0
+1. This version removes most of the deprecated fields and methods. Specifically:
+   - Deprecated constructors in the `User` class have been removed. Use the `User.builder()` pattern instead.
+   - Legacy reply fields `replyToMessageId` and `allowSendingWithoutReply` have been deprecated or removed in many methods. Use `ReplyParameters` instead.
+2. `TelegramClient` interface has new methods for `SendLivePhoto`. If you have a custom implementation, you must implement `execute(SendLivePhoto)` and `executeAsync(SendLivePhoto)`.
+3. `SendPoll` validation now requires at least 1 option (previously 2), reflecting the new API capabilities.
+4. New media support: `Poll` now supports `question_entities` and `options` with `text_entities`.
+5. Support for Guest Mode: `AbilityUtils` and `Flag` in `telegrambots-abilities` now support `GuestMessage`.
+
+
 ## To version 7.6.0
 1. If you are using a custom TelegramClient, you'll need to implement the new methods for `SendPaidMedia`
 

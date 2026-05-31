@@ -2,6 +2,11 @@
 
 Find here changelog for all releases though the years
 
+## 10.0.0
+1. Update Api version [10.0](https://core.telegram.org/bots/api-changelog#may-8-2026)
+
+[How to update to version 10.0.0](How-To-Update.md#to-version-10-0-0)
+
 ## 9.6.0
 1. Update Api version [9.6](https://core.telegram.org/bots/api-changelog#april-3-2026)
 
