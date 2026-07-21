@@ -2,6 +2,13 @@
 
 Find here changelog for all releases though the years
 
+## 10.1.0
+1. Update Api version [10.1](https://core.telegram.org/bots/api-changelog#june-11-2026)
+2. Added a new method `getCommand` to Message class: #1518
+3. Migrated to Javalin 7: #1575
+4. Added BOM module: #1578
+5. Bug fixing: #1577, #1573, #1590, #1591
+
 ## 10.0.0
 1. Update Api version [10.0](https://core.telegram.org/bots/api-changelog#may-8-2026)
 
