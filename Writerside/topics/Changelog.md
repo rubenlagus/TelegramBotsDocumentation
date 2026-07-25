@@ -2,6 +2,9 @@
 
 Find here changelog for all releases though the years
 
+## 10.1.1
+1. Bug fixing: #1593
+
 ## 10.1.0
 1. Update Api version [10.1](https://core.telegram.org/bots/api-changelog#june-11-2026)
 2. Added a new method `getCommand` to Message class: #1518
