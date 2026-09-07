@@ -2,6 +2,10 @@
 
 Find here changelog for all releases though the years
 
+## 10.3.0
+1. Update Api version [10.3](https://core.telegram.org/bots/api-changelog#august-24-2026)
+2. Bug fixing: #1602
+
 ## 10.2.1
 1. Bug fixing: #1599
 
