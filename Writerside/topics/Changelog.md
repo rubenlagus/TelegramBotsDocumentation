@@ -2,6 +2,11 @@
 
 Find here changelog for all releases though the years
 
+## 10.4.0
+1. Update Api version [10.4](https://core.telegram.org/bots/api-changelog#november-9-2026)
+1. Upgrade to Jackson3: #1571
+2. Bug fixing: #1604, #1608, #1462
+
 ## 10.3.0
 1. Update Api version [10.3](https://core.telegram.org/bots/api-changelog#august-24-2026)
 2. Bug fixing: #1602
